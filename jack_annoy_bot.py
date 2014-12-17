@@ -9,6 +9,9 @@ r = praw.Reddit(user_agent=user_agent)
 
 r.login(REDDIT_USERNAME, REDDIT_PASS)
 
+user = ''
+message = ''
+
 if not os.path.isfile('jack_comments.txt'):
 	replied = []
 else:
@@ -17,12 +20,12 @@ else:
 		replied = replied.split('\n')
 		replied = filter(None, replied)
 
-jack = r.get_redditor('searchin4sanity')
+jack = r.get_redditor(user)
 comments = jack.get_comments(limit=5)
 
 for submission in comments:
 	if submission.id not in replied:
-		submission.reply("Whatever you say, J.")
+		submission.reply(message)
 		print 'Bot replied to comment', submission.id
 		replied.append(submission.id)
 
